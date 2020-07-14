@@ -1,6 +1,5 @@
 package mp2.utp.xyz;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -49,10 +48,10 @@ public class DefaultValues
 
 		//DefaultCantidades
 		cantidades = new int[]
-			{5, 5, 8, 5, 10, 20, 20, 20, 0, 0};
+			{5, 5, 8, 5, 10, 0, 20, 20, 0, 0};
 
 		cantidadesBroken = new int[]
-			{5, 5, 5, 2, 5, 0, 0, 0, 0, 0};
+			{5, 5, 5, 2, 5, 10, 0, 0, 0, 0};
 
 		if (e)
 		{
@@ -102,7 +101,7 @@ public class DefaultValues
 							"3. Fecha Fabricacion\n" +
 							"4. Fecha Vencimiento\n" +
 							"5. Punto de Reorden\n" +
-							"0. Atras"
+							"0. Atras\n"
 					);
 					e = userInput.inputCheck(0, 5);
 
