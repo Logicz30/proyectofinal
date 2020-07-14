@@ -49,10 +49,10 @@ public class DefaultValues
 
 		//DefaultCantidades
 		cantidades = new int[]
-			{5, 5, 8, 5, 10, 20, 20, 20, 0, 0};
+			{5, 5, 8, 5, 10, 0, 20, 20, 0, 0};
 
 		cantidadesBroken = new int[]
-			{5, 5, 5, 2, 5, 0, 0, 0, 0, 0};
+			{5, 5, 5, 2, 5, 10, 0, 0, 0, 0};
 
 		if (e)
 		{

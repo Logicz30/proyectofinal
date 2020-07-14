@@ -17,6 +17,10 @@ public class Producto
 	private int cantidadBroken;
 	private boolean expired;
 
+	private int recibido;
+	private int recibidoBroken;
+	private int entregado;
+
 	private static final DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("d-M-yyyy");
 
 	Producto(int id, int provedorId, int puntoReorden, String nombre, String fechaFabricacion, String fechaVencimiento)
@@ -50,16 +54,33 @@ public class Producto
 		this.cantidadBroken = cantidadBroken;
 	}
 
+	public int getRecibido()
+	{
+		return recibido;
+	}
+
+	public int getRecibidoBroken()
+	{
+		return recibidoBroken;
+	}
+
+	public int getEntregado()
+	{
+		return entregado;
+	}
+
 	public void agregarCantidades(int cantidad, int cantidadBroken)
 	{
 		this.cantidad += cantidad;
+		this.recibido += cantidad;
 		this.cantidadBroken += cantidadBroken;
+		this.recibidoBroken += cantidadBroken;
 	}
 
-	public void restarCantidades(int cantidad, int cantidadBroken)
+	public void restarCantidades(int cantidad)
 	{
 		this.cantidad -= cantidad;
-		this.cantidadBroken -= cantidadBroken;
+		this.entregado -= cantidad;
 	}
 
 	public boolean needReorden()

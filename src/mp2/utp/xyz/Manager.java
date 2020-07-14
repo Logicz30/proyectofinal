@@ -64,6 +64,7 @@ public class Manager
 		for (int i = 0; i < 11; i++)
 		{
 			System.out.printf("Dia #%d - Fecha de Hoy: %s\n", i + 1, fechaHoy.format(formatoFechaM));
+			oficina.setExpired(fechaHoy);
 			oficina.printMenu(i == 10);
 
 			do
@@ -72,31 +73,79 @@ public class Manager
 				switch (selecc)
 				{
 					case 1:
-						oficina.printExistenciaPorProducto();
+						if (i == 10)
+						{
+							//LIST
+							oficina.printListaRecibido();
+						}
+						else
+						{
+							//ADD
+							System.out.println("ID del producto entregado:");
+							int id = userInput.inputCheck(1, 10);
+
+							if (oficina.getProductoExpired(id - 1))
+							{
+								System.out.println("PRODUCTO EXPIRADO");
+								continue;
+							}
+
+							int max = oficina.getProductoCantidad(id - 1);
+
+							if (max == 0)
+							{
+								System.out.println("NO HAY PRODUCTO");
+								continue;
+							}
+
+							System.out.printf("Cuantos productos entregara? (1-%d)\n", max);
+							int cantidad = userInput.inputCheck(1, max);
+
+							System.out.printf("Se entregaron %d unidades del Producto #%d al cliente\n", cantidad, id);
+
+							//TODO STORE THIS
+							oficina.restarCantidad(id, cantidad);
+						}
 						break;
 					case 2:
-						oficina.printProductosVencenUnMes(fechaHoy);
+						if (i == 10)
+						{
+							//LIST
+							oficina.printListaEntragado();
+						}
+						else
+						{
+							//ADD
+							System.out.println("ID del producto recibido:");
+							int id = userInput.inputCheck(1, 10);
+							System.out.println("Cuantos productos recibio? (1-250)");
+							int cantidad = userInput.inputCheck(1, 250);
+							System.out.printf("Cuantos estan dañados? (1-%d)\n", cantidad);
+							int cantidadBroken = userInput.inputCheck(0, cantidad);
+
+							oficina.addCantidad(id, cantidad - cantidadBroken, cantidadBroken);
+						}
 						break;
 					case 3:
-						oficina.printProductorPorProveedores();
+						oficina.printExistenciaPorProducto();
 						break;
 					case 4:
-						oficina.printProductoReorden();
+						oficina.printProductosVencenUnMes();
 						break;
 					case 5:
-						oficina.printProductoSinExistencia();
+						oficina.printProductorPorProveedores();
 						break;
 					case 6:
-						oficina.printProductoVencido(fechaHoy);
+						oficina.printProductoReorden();
 						break;
 					case 7:
-						oficina.printProductoBroken();
+						oficina.printProductoSinExistencia();
 						break;
 					case 8:
-						//Solve stage, entregar
+						oficina.printProductoVencido();
 						break;
 					case 9:
-						//Solver stage, recibe
+						oficina.printProductoBroken();
 						break;
 					case 10:
 						oficina.printMenu(i == 10);
