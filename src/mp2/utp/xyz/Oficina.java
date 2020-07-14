@@ -31,10 +31,7 @@ public class Oficina
 	void setExpired(LocalDate fechaHoy)
 	{
 		this.fechaHoy = fechaHoy;
-		for (Producto producto: productoList)
-		{
-			producto.setExpired(fechaHoy);
-		}
+		productoList.forEach(producto -> producto.setExpired(fechaHoy));
 	}
 
 	void setCantidades(boolean change)

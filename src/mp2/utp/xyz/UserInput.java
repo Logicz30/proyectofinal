@@ -6,62 +6,54 @@ import java.io.InputStreamReader;
 
 public class UserInput
 {
-	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
 	public int inputCheck(int min, int max)
 	{
+		boolean valid;
 		int i = 0;
 
-		try
+		do
 		{
-			i = Integer.parseInt(reader.readLine());
-			while (i < min || i > max)
+			valid = true;
+			try
 			{
-				System.out.println("Seleccion Incorrecta");
 				i = Integer.parseInt(reader.readLine());
+				while (i < min || i > max)
+				{
+					System.out.println("Seleccion Incorrecta");
+					i = Integer.parseInt(reader.readLine());
+				}
 			}
-		}
-		catch (IOException e)
-		{
-			System.out.println("INPUT ERROR!");
-		}
-
-		return i;
-	}
-
-	public double inputCheckDouble(int max)
-	{
-		double i = 0;
-
-		try
-		{
-			i = Double.parseDouble(reader.readLine());
-			while (i <= 0 || i > max)
+			catch (IOException | NumberFormatException e)
 			{
-				System.out.println("Seleccion Incorrecta");
-				i = Double.parseDouble(reader.readLine());
+				valid = false;
+				System.out.println("INT INPUT ERROR!");
 			}
-		}
-		catch (IOException e)
-		{
-			System.out.println("INPUT ERROR!");
-		}
+
+		} while (!valid);
 
 		return i;
 	}
 
 	public String inputString()
 	{
+		boolean valid;
 		String i = null;
 
-		try
+		do
 		{
-			i = reader.readLine();
-		}
-		catch (IOException e)
-		{
-			System.out.println("INPUT ERROR!");
-		}
+			valid = true;
+			try
+			{
+				i = reader.readLine();
+			}
+			catch (IOException e)
+			{
+				valid = false;
+				System.out.println("STRING INPUT ERROR!");
+			}
+		} while (!valid);
 
 		return i;
 	}
