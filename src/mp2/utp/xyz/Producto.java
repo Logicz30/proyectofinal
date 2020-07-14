@@ -31,16 +31,14 @@ public class Producto
 		this.fechaVencimiento = fechaVencimiento == null ? null : LocalDate.parse(fechaVencimiento, formatoFecha);
 	}
 
-	public void setExpired(String fecha)
+	public void setExpired(LocalDate fecha)
 	{
 		if (fechaVencimiento == null)
 		{
 			return;
 		}
 
-		LocalDate fechaHoy = LocalDate.parse(fecha, formatoFecha);
-
-		if (fechaHoy != null && fechaHoy.isAfter(fechaVencimiento))
+		if (fecha != null && fecha.isAfter(fechaVencimiento))
 		{
 			expired = true;
 		}

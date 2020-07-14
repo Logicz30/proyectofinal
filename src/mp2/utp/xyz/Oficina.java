@@ -7,20 +7,31 @@ import java.util.List;
 public class Oficina
 {
 	private final DateTimeFormatter formatoFecha;
-	private List<Producto> productoList;
-	private List<Proveedor> proveedorList;
+	final private List<Producto> productoList;
+	final private List<Proveedor> proveedorList;
 
-	Oficina(boolean values)
+	DefaultValues dv;
+
+	Oficina(boolean change)
 	{
-		formatoFecha = DateTimeFormatter.ofPattern("dd-M-yyyy");
+		formatoFecha = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
 
-		DefaultValues dv = new DefaultValues();
-		if (values)
+		dv = new DefaultValues(change);
+		if (change)
 		{
-			//TODO CHANGE DEFAULT VALUES
+			dv.changeValues();
 		}
 		productoList = dv.getProductoList();
 		proveedorList = dv.getProveedorList();
+	}
+
+	void setCantidades(boolean change)
+	{
+		if (change)
+		{
+			dv.changeCantidades();
+		}
+		dv.setCantidades(productoList);
 	}
 
 	void printExistenciaPorProducto()
@@ -41,8 +52,12 @@ public class Oficina
 		for (Producto producto : productoList)
 		{
 			LocalDate fecha = producto.getFechaVencimiento();
-
-			if (fecha != null && fechaHoy.until(fecha).getDays() < 30)
+			if (fecha == null)
+			{
+				continue;
+			}
+			int dias = fechaHoy.until(fecha).getDays();
+			if (dias < 30 && dias >= 0)
 			{
 				empty = false;
 				String builder = fecha.format(formatoFecha);
@@ -107,14 +122,21 @@ public class Oficina
 	void printProductoVencido(LocalDate fechaHoy)
 	{
 		System.out.println("Productos vencidos:");
-		System.out.print("ID  Nombre\n");
+		System.out.printf("ID  %-13s FDV\n", "Nombre");
 
 		for (Producto producto : productoList)
 		{
-			producto.setExpired(fechaHoy.format(formatoFecha));
+			//TODO MEJORAR
+			producto.setExpired(fechaHoy);
+			String builder = null;
+			if (producto.getFechaVencimiento() != null)
+			{
+				builder = producto.getFechaVencimiento().format(formatoFecha);
+			}
+
 			if (producto.isExpired())
 			{
-				System.out.printf("#%-2d %s\n", producto.getId(), producto.getNombre());
+				System.out.printf("#%-2d %-13s %s\n", producto.getId(), producto.getNombre(), builder);
 			}
 		}
 	}
@@ -133,7 +155,7 @@ public class Oficina
 		}
 	}
 
-	void printMenu()
+	void printMenu(boolean stage)
 	{
 		System.out.println("Menu de seleccion:");
 		System.out.print(
@@ -143,14 +165,29 @@ public class Oficina
 				"4.  Listar los productos que estan en el punto de reorden\n" +
 				"5.  Listar los productos sin existencia\n" +
 				"6.  Listar los productos vendicos\n" +
-				"7.  Listar los productos dañados\n" +
-				"------\n" +
-				"8.  Entregar productos a los clientes\n" +
-				"9. Recibir productos de las compras\n" +
-				"10. Listar los productos entregados a los clientes durante la semana\n" +
-				"11. Listar los productos que se han recibido en las compras durante la semana\n" +
-				"0. Siguiente dia/Salir\n"
+				"7.  Listar los productos dañados\n"
 		);
+
+		String builder;
+
+		if (stage)
+		{
+			builder =
+				"8.  Entregar productos a los clientes\n" +
+					"9.  Recibir productos de las compras\n" +
+					"10. Repetir menu\n" +
+					"0.  Siguiente dia\n";
+		}
+		else
+		{
+			builder =
+				"8.  Listar los productos entregados a los clientes durante la semana\n" +
+					"9.  Listar los productos que se han recibido en las compras durante la semana\n" +
+					"10. Repetir menu\n" +
+					"0.  Salir\n";
+		}
+
+		System.out.println(builder);
 	}
 
 	public static void main(String[] args)
