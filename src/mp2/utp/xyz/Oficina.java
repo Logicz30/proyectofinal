@@ -261,7 +261,7 @@ public class Oficina
 				"\t5.  Listar los productos por proceedor\n" +
 				"\t6.  Listar los productos que estan en el punto de reorden\n" +
 				"\t7.  Listar los productos sin existencia\n" +
-				"\t8.  Listar los productos vendicos\n" +
+				"\t8.  Listar los productos vendidos\n" +
 				"\t9.  Listar los productos dañados\n" +
 				"\t10. Repetir menu\n"
 		);
