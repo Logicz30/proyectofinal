@@ -91,15 +91,15 @@ public class DefaultValues
 			{
 				case 1:
 					//Edit Producto
-					System.out.println("Que producto desea editar? (1-10)");
+					System.out.println("¿Que producto desea editar? (1-10)");
 					subSelec = userInput.inputCheck(1, 10);
 
 					System.out.print(
-						"Que valor desea cambiar?\n" +
+						"¿Que valor desea cambiar?\n" +
 							"1. Nombre\n" +
 							"2. Proveedor\n" +
-							"3. Fecha Fabricacion\n" +
-							"4. Fecha Vencimiento\n" +
+							"3. Fecha de Fabricacion\n" +
+							"4. Fecha de Vencimiento\n" +
 							"5. Punto de Reorden\n" +
 							"0. Atras\n"
 					);
@@ -136,11 +136,11 @@ public class DefaultValues
 					break;
 				case 2:
 					//Edit Proveedor
-					System.out.println("Que proveedor desea editar? (1-5)");
+					System.out.println("¿Que proveedor desea editar? (1-5)");
 					subSelec = userInput.inputCheck(1, 5);
 
 					System.out.print(
-						"Que valor desea cambiar?\n" +
+						"¿Que valor desea cambiar?\n" +
 							"1. Nombre\n" +
 							"0. Atras\n"
 					);
@@ -204,7 +204,7 @@ public class DefaultValues
 			{
 				System.out.println("Ingrese Cantidad Total de productos: (0-250)");
 				int cTotal = userInput.inputCheck(0, 250);
-				System.out.printf("Cuantos de estos productos estan dañados?: (0-%d)\n", cTotal);
+				System.out.printf("¿Cuantos de estos productos estan dañados?: (0-%d)\n", cTotal);
 				int cBroken = userInput.inputCheck(0, cTotal);
 
 				cantidades[mainSelec - 1] = cTotal - cBroken;
