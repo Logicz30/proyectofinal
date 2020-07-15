@@ -28,14 +28,14 @@ public class Manager
 
 	boolean initValues()
 	{
-		System.out.println("Desea editar los valores default?");
+		System.out.println("¿Desea editar los valores default?");
 		System.out.println("1. Si | 2. No");
 		return userInput.inputCheck(1, 2) == 1;
 	}
 
 	boolean initCantidades()
 	{
-		System.out.println("Desea editar las cantidades default?");
+		System.out.println("¿Desea editar las cantidades default?");
 		System.out.println("1. Si | 2. No");
 		return userInput.inputCheck(1, 2) == 1;
 	}
@@ -149,7 +149,7 @@ public class Manager
 			return;
 		}
 
-		System.out.printf("Cuantos productos entregara? (1-%d)\n", max);
+		System.out.printf("¿Cuantos productos entregara? (1-%d)\n", max);
 		int cantidad = userInput.inputCheck(1, max);
 
 		System.out.printf("Se entregaron %d unidades del Producto #%d al cliente\n", cantidad, id);
@@ -160,9 +160,9 @@ public class Manager
 	{
 		System.out.println("ID del producto recibido:");
 		int id = userInput.inputCheck(1, 10);
-		System.out.println("Cuantos productos recibio? (1-250)");
+		System.out.println("¿Cuantos productos recibio? (1-250)");
 		int cantidad = userInput.inputCheck(1, 250);
-		System.out.printf("Cuantos estan dañados? (1-%d)\n", cantidad);
+		System.out.printf("¿Cuantos estan dañados? (1-%d)\n", cantidad);
 		int cantidadBroken = userInput.inputCheck(0, cantidad);
 
 		oficina.addCantidad(id, cantidad - cantidadBroken, cantidadBroken);
